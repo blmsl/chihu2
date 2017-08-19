@@ -1,14 +1,8 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import { Headers, Http } from '@angular/http';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 
-/**
- * Generated class for the FoundPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-found',
@@ -16,11 +10,17 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 })
 export class FoundPage {
 
+  @ViewChild(Content) content: Content;
+  isIdark;
   //数据
   data: any = [];
   _refresher = null;
 
   constructor(public UserService: UserServiceProvider, public http: Http, public navCtrl: NavController, public navParams: NavParams) {
+    this.isIdark = this.UserService.isIdark;
+    this.UserService.SetIdark.subscribe((data) => {
+      this.isIdark = data;
+    })
     this.getdata();
 }
 
@@ -77,6 +77,11 @@ export class FoundPage {
     setTimeout(() => {
       infiniteScroll.complete();
     }, 1500);
+  }
+
+  //点击到顶部
+  tapEvent(e) {
+    this.content.scrollToTop();
   }
 
 }

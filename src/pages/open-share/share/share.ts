@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
 
 /**
@@ -25,9 +25,10 @@ export class ShareComponent implements OnChanges {
   gallery: any = null;
 
   items: any = [];
+  isIdark;
 
   constructor(public UserService: UserServiceProvider) {
-    
+    this.isIdark = this.UserService.isIdark;
   }
 
   ngOnChanges(ch) {

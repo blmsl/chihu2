@@ -24,13 +24,20 @@ export class TabsPage {
   @ViewChild('myTabs') tabs: Tabs;
   itimer = null;
   apkDownloadUrl = '';
-
+  isIdark;
   fileTransfer: TransferObject;
 
   constructor(public fileOpener: FileOpener, public transfer: Transfer, public http: Http, public appVersion: AppVersion, public UserService: UserServiceProvider, public platform: Platform, public navCtrl: NavController, public toastCtrl: ToastController, public alertCtrl: AlertController, public file: File) {
+    this.isIdark = this.UserService.isIdark;
+    this.pageBack();
     setTimeout(() => {
-      this.pageBack();
-    }, 1000);
+      this.appVersion.getVersionNumber().then((version) => {
+        this.UserService.Version = version;
+      });
+    }, 5000);
+    this.UserService.SetIdark.subscribe((data) => {
+      this.isIdark = data;
+    })
   }
 
   //app版本获取
@@ -100,10 +107,6 @@ export class TabsPage {
   pageBack() {
 
     this.platform.registerBackButtonAction((): any => {
-
-      this.appVersion.getVersionNumber().then((version) => {
-        this.UserService.Version = version;
-      });
 
       if (this.UserService.isopenimg) {
         this.UserService.galleryOBJ.close();

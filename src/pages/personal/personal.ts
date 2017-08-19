@@ -3,12 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Headers, Http } from '@angular/http';
 
-/**
- * Generated class for the PersonalPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-personal',
@@ -26,8 +20,10 @@ export class PersonalPage {
     _id: this._id,
     tar: null
   };
+  isIdark;
 
   constructor(public UserService: UserServiceProvider, public http: Http, public navCtrl: NavController, public navParams: NavParams) {
+    this.isIdark = this.UserService.isIdark;
     if (this.navParams.get("_id")) {
       this._id = this.navParams.get("_id");
       this.chatParams._id = this._id;
@@ -58,6 +54,18 @@ export class PersonalPage {
         this.name = res.json()[0].name;
         this.userimg = res.json()[0].userimg;
       });
+  }
+
+  chart() {
+    if (this.UserService._user._id) {
+      this.navCtrl.push("ChatPage", {
+        targetId: this._id,
+        targetName: this.name
+      });
+    } else {
+      this.navCtrl.push('LoginPage');
+    }
+
   }
 
 }

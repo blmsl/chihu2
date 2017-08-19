@@ -3,12 +3,6 @@ import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import { Headers, Http } from '@angular/http';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 
-/**
- * Generated class for the HomePage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-home',
@@ -22,10 +16,15 @@ export class HomePage {
   public new_scrollTop = 0;
   _refresher = null;
 
+  isIdark;
   //数据
   items = [];
 
   constructor(public UserService: UserServiceProvider, public http: Http, public navCtrl: NavController, public navParams: NavParams, public ref: ChangeDetectorRef) {
+    this.isIdark = this.UserService.isIdark;
+    this.UserService.SetIdark.subscribe((data) => {
+      this.isIdark = data;
+    })
     this.getdata();
   }
 
@@ -86,7 +85,7 @@ export class HomePage {
   }
 
   openMmessage() {
-    this.navCtrl.push('MessagePage');
+    this.checkLogin('MessagePage');
   }
 
   //创建菜谱

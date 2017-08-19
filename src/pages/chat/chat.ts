@@ -1,14 +1,9 @@
 import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { JmessageProvider } from '../../providers/jmessage/jmessage';
-import { Events, Content, TextInput } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, Content, TextInput } from 'ionic-angular';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
-/**
- * Generated class for the ChatPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+import { RongCloudProvider } from '../../providers/rong-cloud/rong-cloud';
+
+declare var RongIMClient: any;
 @IonicPage()
 @Component({
   selector: 'page-chat',
@@ -20,43 +15,74 @@ export class ChatPage {
   @ViewChild('chat_input') messageInput: TextInput;
 
   targetId;
-  msgList:any = [];
+  targetName;
+  msgList: any = [];
   //输入文本信息
-    editorMsg = '';
+  editorMsg = '';
+  eventSub;
+  isIdark;
 
-  constructor(public events: Events, public ref: ChangeDetectorRef,public UserService : UserServiceProvider, public jm: JmessageProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public rc: RongCloudProvider, public events: Events, public ref: ChangeDetectorRef, public UserService: UserServiceProvider, public navCtrl: NavController, public navParams: NavParams) {
+    this.isIdark = this.UserService.isIdark;
     this.targetId = navParams.get('targetId');
-    
-    this.jm.getLatestMessage(this.targetId).then((res)=>{
-      this.msgList = res;
-      alert( JSON.stringify(res) );
+    this.targetName = navParams.get('targetName');
+    this.eventSub = this.rc.rong_data.subscribe((message) => {
+      this.pushNewMsg(message);
+      //alert('sub2:' + JSON.stringify(message));
+    });
+    this.rc.getConversation(this.targetId).then((res:any)=>{
+      if( res.unreadMessageCount != '0' ){
+        //alert(res.unreadMessageCount);
+        //获取未读历史信息
+        this.rc.getRemoteHistoryMessages( this.targetId, res.unreadMessageCount ).then((data:any)=>{
+          if(data['hasMsg']){
+            this.msgList = data['list'];
+            //alert( JSON.stringify( data['list'] ) );
+            this.rc.clearMessagesUnreadStatus(this.targetId);
+          }
+          
+        })
+      }
+      //alert( JSON.stringify( res ) );
     })
   }
 
-  //发送信息
-    sendMsg() {
-        if (this.editorMsg == '') {
-            return true;
-        }
-        this.jm.sendSingleTextMessage( this.targetId, this.editorMsg ).then((res)=>{
-          alert(res);
-        })
+  ionViewCanLeave() {
+    if (this.eventSub) {
+      this.eventSub.unsubscribe();
     }
+  }
+
+  //发送信息
+  sendMsg() {
+
+    if (this.editorMsg.length > 0) {
+      this.rc.sendTextMessage(this.targetId, this.editorMsg).then((data) => {
+        data['targetId'] = '';
+        this.pushNewMsg(data);
+        this.editorMsg = '';
+        //alert(JSON.stringify(data));
+      }).catch((err) => {
+        alert(err);
+      })
+    }
+  }
 
   //推入信息到数据
-    pushNewMsg(message) {
-        this.msgList.push(message);
-        this.scrollToBottom();
+  pushNewMsg(message) {
+    this.msgList.push(message);
+    this.scrollToBottom();
+  }
 
+  scrollToBottom() {
+    if (this.content.scrollToBottom) {
+      this.content.scrollToBottom();
     }
+  }
 
-    scrollToBottom() {
-        if (this.content.scrollToBottom) {
-            this.content.scrollToBottom();
-        }
-        this.messageInput.setFocus();
-    }
-
-  
+  //点击到顶部
+  tapEvent(e) {
+    this.content.scrollToTop();
+  }
 
 }

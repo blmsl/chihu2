@@ -1,13 +1,8 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Headers, Http } from '@angular/http';
-/**
- * Generated class for the MySharePage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+
 @IonicPage()
 @Component({
   selector: 'page-my-share',
@@ -15,10 +10,13 @@ import { Headers, Http } from '@angular/http';
 })
 export class MySharePage {
 
+  @ViewChild(Content) content: Content;
   data: any = [];
   uid: any;
+  isIdark;
 
   constructor(public http: Http, public UserService: UserServiceProvider, public navCtrl: NavController, public navParams: NavParams) {
+    this.isIdark = this.UserService.isIdark;
     if (this.navParams.get("id")) {
       this.uid = this.navParams.get("id");
     } else {
@@ -41,6 +39,11 @@ export class MySharePage {
         this.UserService.presentLoadingDismiss();
         this.data = res.json();
       });
+  }
+
+  //点击到顶部
+  tapEvent(e) {
+    this.content.scrollToTop();
   }
 
 }

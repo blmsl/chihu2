@@ -2,12 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 
-/**
- * Generated class for the MorePage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-more',
@@ -17,8 +11,12 @@ export class MorePage {
 
   name:any='';
   mimg:any='';
+  isIdark;
 
   constructor(public UserService : UserServiceProvider, public navCtrl: NavController, public navParams: NavParams) {
+    this.UserService.SetIdark.subscribe((data) => {
+      this.isIdark = data;
+    })
     this.init();
   }
 
@@ -27,6 +25,7 @@ export class MorePage {
   }
 
   init(){
+    this.isIdark = this.UserService.isIdark;
     this.name = this.UserService._user.nickname;
     this.mimg = this.UserService._user.userimg;
   }
@@ -76,10 +75,6 @@ export class MorePage {
     }else{
       this.navCtrl.push( 'LoginPage' );
     }
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MorePage');
   }
 
 }

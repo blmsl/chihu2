@@ -1,14 +1,8 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import { Headers, Http } from '@angular/http';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 
-/**
- * Generated class for the MyWorkPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-my-work',
@@ -16,10 +10,13 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 })
 export class MyWorkPage {
 
+  @ViewChild(Content) content: Content;
   items: any = [];
   uid: any;
+  isIdark;
 
   constructor(public UserService: UserServiceProvider, public http: Http, public navCtrl: NavController, public navParams: NavParams) {
+    this.isIdark = this.UserService.isIdark;
     if (this.navParams.get('id')) {
       this.uid = this.navParams.get('id');
     } else {
@@ -42,6 +39,11 @@ export class MyWorkPage {
         this.UserService.presentLoadingDismiss();
         this.items = res.json();
       });
+  }
+
+  //点击到顶部
+  tapEvent(e) {
+    this.content.scrollToTop();
   }
 
 }

@@ -1,16 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Headers, Http } from '@angular/http';
 import { AlertController, LoadingController } from 'ionic-angular';
-import { JmessageProvider } from '../jmessage/jmessage';
+import { RongCloudProvider } from '../rong-cloud/rong-cloud';
 import 'rxjs/add/operator/map';
 
-/*
-  Generated class for the UserServiceProvider provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular DI.
-*/
 declare var window: any;
 @Injectable()
 export class UserServiceProvider {
@@ -19,20 +13,26 @@ export class UserServiceProvider {
     nickname: "吃乎",
     userimg: "https://avatars2.githubusercontent.com/u/11835988?v=3&u=2a181779eb2164666606366a1df31f9c17cf7a20&s=100",
     _id: null,
+    isIdark: false
   }
   public _user: any;
   Version = '1.0';
   isopenimg = false;
   galleryOBJ = null;
+
+  //夜间模式
+  isIdark: any = false;
+  SetIdark: EventEmitter<number>;
   
   loading;
 
   //关注的人
   _my_fork_user:any = [];
 
-  constructor( public jm: JmessageProvider, public http: Http, public storage: Storage, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
+  constructor( public rc: RongCloudProvider, public http: Http, public storage: Storage, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
     this._user = this._init;
-
+    this.SetIdark = new EventEmitter();
+    this.rc.init();
     this.storage.ready().then(() => {
       this.storageGet();
     });
@@ -81,8 +81,14 @@ export class UserServiceProvider {
     this.storage.get('user').then((val) => {
       if (val && val._id) {
         this._user = val;
-        this.jm.login( this._user.nickname+"", this._user._id+'' );
         this.get_fork_user();
+        this.rc.gettoken(this._user._id, this._user.nickname, this._user.userimg);
+      }
+    });
+    this.storage.get('isdark').then((val) => {
+      if(val != undefined){
+        this.isIdark = val;
+        this.SetIdark.emit(this.isIdark);
       }
     });
   }
@@ -91,8 +97,13 @@ export class UserServiceProvider {
   setUser(obj) {
     //alert("头像："+img);
     this._user = obj;
+    this.storage.set('isdark', false);
     this.storage.set('user', this._user);
     this.storageGet();
+  }
+
+  setDark(isdark){
+    this.storage.set('isdark', isdark);
   }
 
   //清除缓存
@@ -101,7 +112,12 @@ export class UserServiceProvider {
     this._user = this._init;
   }
 
-
+  //开启/关闭夜视功能
+  setIdari(){
+    this.isIdark = !this.isIdark;
+    this.SetIdark.emit(this.isIdark);
+    this.setDark(this.isIdark);
+  }
 
 
 }

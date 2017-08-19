@@ -6,4 +6,18 @@ page-message {
             margin-top: 14px;
         }
     }
+    .idark {
+        .toolbar-background {
+            background: #37474f !important;
+        }
+    }
+    .idark_content {
+        background: #212b30 !important;
+    }
+    .nomessage {
+        background-image: url('../assets/icon/nomessage.png') !important;
+        background-size: cover !important;
+        background-position: center center !important;
+        background-repeat: no-repeat !important;
+    }
 }

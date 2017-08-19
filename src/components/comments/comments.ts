@@ -1,11 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { NavController } from 'ionic-angular';
-/**
- * Generated class for the CommentsComponent component.
- *
- * See https://angular.io/docs/ts/latest/api/core/index/ComponentMetadata-class.html
- * for more info on Angular Components.
- */
+import { UserServiceProvider } from '../../providers/user-service/user-service';
+
 @Component({
   selector: 'comments',
   templateUrl: 'comments.html'
@@ -14,9 +10,14 @@ export class CommentsComponent {
 
   @Input() data:any = [];
   @Input() type:any = [];
+  isIdark;
 
-  constructor(public navCtrl: NavController) {
-    
+  constructor(
+    public navCtrl: NavController,
+    public UserService: UserServiceProvider
+  )
+  {
+    this.isIdark = this.UserService.isIdark;
   }
 
   //评论回复列表

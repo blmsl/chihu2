@@ -1,21 +1,17 @@
 import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import { Headers, Http } from '@angular/http';
 import { DomSanitizer } from '@angular/platform-browser'
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 
-/**
- * Generated class for the AnswerPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-answer',
   templateUrl: 'answer.html',
 })
 export class AnswerPage {
+
+  @ViewChild(Content) content: Content;
 
   //头部导航动画class属性控制
   tabanimate: boolean = false;
@@ -31,10 +27,12 @@ export class AnswerPage {
   iscoll: boolean = false;
   isthank: boolean = false;
   conts = 0;
+  isIdark;
 
   constructor(public UserService: UserServiceProvider, public sanitizer: DomSanitizer, public ref: ChangeDetectorRef, public http: Http, public navCtrl: NavController, public navParams: NavParams) {
     this._id = this.navParams.get("_id");
     this.getdata();
+    this.isIdark = this.UserService.isIdark;
 }
 
 //获取文章数据
@@ -77,6 +75,11 @@ export class AnswerPage {
     }
     this.old_scrollTop = scrollTop;
     this.ref.detectChanges();
+  }
+
+  //点击到顶部
+  tapEvent(e) {
+    this.content.scrollToTop();
   }
 
 }

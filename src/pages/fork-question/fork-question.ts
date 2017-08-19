@@ -3,12 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Headers, Http } from '@angular/http';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 
-/**
- * Generated class for the ForkQuestionPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-fork-question',
@@ -19,8 +13,10 @@ export class ForkQuestionPage {
   data: any = [];
   rootNavCtrl: NavController;
   uid;
+  isIdark;
 
   constructor(public UserService: UserServiceProvider, public http: Http, public navCtrl: NavController, public navParams: NavParams) {
+    this.isIdark = this.UserService.isIdark;
     this.rootNavCtrl = navParams.get('rootNavCtrl');
     if (this.navParams.get('id')) {
       this.uid = this.navParams.get('id');

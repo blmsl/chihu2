@@ -2,12 +2,7 @@ import { Component, Input } from '@angular/core';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
 import { Headers, Http } from '@angular/http';
 import { NavController } from 'ionic-angular';
-/**
- * Generated class for the FooterComponent component.
- *
- * See https://angular.io/docs/ts/latest/api/core/index/ComponentMetadata-class.html
- * for more info on Angular Components.
- */
+
 @Component({
   selector: 'footer',
   templateUrl: 'footer.html'
@@ -16,10 +11,10 @@ export class FooterComponent {
 
   @Input() data: any = {};
   @Input() type: any = '';
-
+  isIdark;
 
   constructor(public UserService: UserServiceProvider, public http: Http, public navCtrl: NavController) {
-
+    this.isIdark = this.UserService.isIdark;
   }
 
   sendComment(pl, comid, targetname, targetid, _id, reply) {

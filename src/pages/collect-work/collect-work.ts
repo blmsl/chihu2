@@ -2,12 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Headers, Http } from '@angular/http';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
-/**
- * Generated class for the CollectWorkPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+
 @IonicPage()
 @Component({
   selector: 'page-collect-work',
@@ -19,8 +14,10 @@ export class CollectWorkPage {
   items = [];
   rootNavCtrl: NavController;
   id;
+  isIdark;
 
   constructor(public UserService: UserServiceProvider, public http: Http, public navCtrl: NavController, public navParams: NavParams) {
+    this.isIdark = this.UserService.isIdark;
     this.rootNavCtrl = navParams.get('rootNavCtrl');
     this.id = this.navParams.data._id;
     this.getdata();

@@ -3,8 +3,8 @@
 <p align="center">
   <a href="https://github.com/kongdewen1994/chihu2"><img src="https://img.shields.io/badge/APP-吃乎2-blue.svg" alt=""></a>
   <a href="https://github.com/kongdewen1994/chihu2"><img src="https://img.shields.io/badge/QQ%20Group-513752928-red.svg" alt=""></a>
-  <a href="https://github.com/kongdewen1994/chihu2"><img src="https://img.shields.io/badge/alpha-1.0.2-blue.svg" alt=""></a>
-  <a href="https://github.com/kongdewen1994/chihu2"><img src="https://img.shields.io/badge/ionic2-3.4.2-blue.svg" alt=""></a>
+  <a href="https://github.com/kongdewen1994/chihu2"><img src="https://img.shields.io/badge/alpha-1.1.0-blue.svg" alt=""></a>
+  <a href="https://github.com/kongdewen1994/chihu2"><img src="https://img.shields.io/badge/ionic2-3.6.0-blue.svg" alt=""></a>
   <a href="https://github.com/kongdewen1994/chihu2"><img src="https://img.shields.io/badge/platforms-Android-lightgrey.svg" alt=""></a>
   <a href="https://github.com/kongdewen1994/chihu2"><img src="https://img.shields.io/badge/WeChat-Devon1994-brightgreen.svg" alt=""></a>
   
@@ -19,6 +19,9 @@ Android 的 ionic2例子，吃乎1的升级版，更小，更快，组件化
 <br/>
 ⚠️⚠️⚠️<a href="https://github.com/kongdewen1994/chihu/blob/master/README.md">「吃乎1」，请跳转</a>
 <br/>
+
+> 关于【吃乎】官网---> https://github.com/chihu2/chihu-web-angular
+
 > 作者：Devon。
 
 > 此版本为内测版本，有时间将不断改进，如果发现bug或有什么好的建议请提交Issues，更多请关注ionic2交流群
@@ -83,7 +86,7 @@ Android 的 ionic2例子，吃乎1的升级版，更小，更快，组件化
 - QQ ：849996781
 
 ## Download
-- 手机版：https://github.com/kongdewen1994/chihu2/raw/master/android-debug.apk
+- 手机版：https://github.com/chihu2/chihu2/raw/master/android-debug.apk
 
 ## ⚠️注意
 - 吃乎1  和 吃乎2  数据库不共享

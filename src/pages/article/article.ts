@@ -1,14 +1,8 @@
 import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 import { Headers, Http } from '@angular/http';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 
-/**
- * Generated class for the ArticlePage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-article',
@@ -16,6 +10,8 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 })
 export class ArticlePage {
   
+  @ViewChild(Content) content: Content;
+
   data:any = {};
   _id:any = 0;
 
@@ -27,11 +23,12 @@ export class ArticlePage {
   tabbule: boolean = false;
   old_scrollTop = 0;
   conts = 0;
+  isIdark
 
   constructor( public UserService: UserServiceProvider, public ref: ChangeDetectorRef, public navCtrl: NavController, public navParams: NavParams, public http: Http) {
     this._id = this.navParams.get("_id");
     this.getdata();
-    
+    this.isIdark = this.UserService.isIdark;
 }
 
 //获取文章数据
@@ -75,6 +72,11 @@ export class ArticlePage {
     }
     this.old_scrollTop = scrollTop;
     this.ref.detectChanges();
+  }
+
+  //点击到顶部
+  tapEvent(e) {
+    this.content.scrollToTop();
   }
 
   

@@ -27,6 +27,7 @@ export class SendWorkPage {
   sphide: boolean = false;
   banner = "assets/icon/work_banner.png";
   fileTransfer: TransferObject;
+  isIdark;
 
   constructor(
     public http: Http,
@@ -39,6 +40,7 @@ export class SendWorkPage {
     public WorkService: WorkDataProvider,
     public UserService: UserServiceProvider
   ) {
+    this.isIdark = this.UserService.isIdark;
     this.title = this.WorkService._title;
     this.fileTransfer = this.transfer.create();
     this.init();
@@ -101,11 +103,12 @@ export class SendWorkPage {
 
   //发布
   send() {
-    if (this.items.length < 1 && this.foods.length < 1 && this.title.length < 1 && this.banner == "assets/icon/work_banner.png") {
-      alert("抱歉，请填写完整...");
-    } else {
-      this.postdata();
-    }
+    alert("后台正在开发，暂时停止发布功能");
+    // if (this.items.length < 1 && this.foods.length < 1 && this.title.length < 1 && this.banner == "assets/icon/work_banner.png") {
+    //   alert("抱歉，请填写完整...");
+    // } else {
+    //   this.postdata();
+    // }
 
   }
 

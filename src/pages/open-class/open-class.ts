@@ -3,12 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Headers, Http } from '@angular/http';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 
-/**
- * Generated class for the OpenClassPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-open-class',
@@ -17,9 +11,11 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 export class OpenClassPage {
 
   iclass:any = '分类';
-  items:any = []
+  items:any = [];
+  isIdark;
 
   constructor(public UserService: UserServiceProvider, public http: Http, public navCtrl: NavController, public navParams: NavParams) {
+    this.isIdark = this.UserService.isIdark;
     this.iclass = this.navParams.get('class');
     this.getdata();
 }

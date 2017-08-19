@@ -20,8 +20,10 @@ export class SendAnswerPage implements OnInit {
   _id;
   title;
   text;
+  isIdark;
 
   constructor(public http: Http, public UserService: UserServiceProvider, public navCtrl: NavController, public navParams: NavParams) {
+    this.isIdark = this.UserService.isIdark;
     this._id = this.navParams.get('id');
     this.title = this.navParams.get('title');
   }
@@ -73,25 +75,27 @@ export class SendAnswerPage implements OnInit {
   }
 
   send() {
-    this.text = this.summernote.summernote('code');
-    if (this.text < 10) {
-      alert("内容太短...至少10个字符");
-      return true;
-    }
-    this.UserService.presentLoadingDefault();
+    alert("后台正在开发，暂时停止发布功能");
 
-    let url = "http://www.devonhello.com/chihu2/send_answer";
+    // this.text = this.summernote.summernote('code');
+    // if (this.text < 10) {
+    //   alert("内容太短...至少10个字符");
+    //   return true;
+    // }
+    // this.UserService.presentLoadingDefault();
 
-    var headers = new Headers();
-    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    // let url = "http://www.devonhello.com/chihu2/send_answer";
 
-    this.http.post(url, "uid=" + this.UserService._user._id + "&answerid=" + this._id + "&name=" + this.UserService._user.nickname + "&userimg=" + this.UserService._user.userimg + "&title=" + this.title + "&text=" + this.text, {
-      headers: headers
-    })
-      .subscribe((res) => {
-        this.UserService.presentLoadingDismiss();
-        this.navCtrl.pop();
-      });
+    // var headers = new Headers();
+    // headers.append('Content-Type', 'application/x-www-form-urlencoded');
+
+    // this.http.post(url, "uid=" + this.UserService._user._id + "&answerid=" + this._id + "&name=" + this.UserService._user.nickname + "&userimg=" + this.UserService._user.userimg + "&title=" + this.title + "&text=" + this.text, {
+    //   headers: headers
+    // })
+    //   .subscribe((res) => {
+    //     this.UserService.presentLoadingDismiss();
+    //     this.navCtrl.pop();
+    //   });
 
   }
 

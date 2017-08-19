@@ -18,16 +18,19 @@ export class SendQuestionPage {
 
   title = '';
   text = '';
+  isIdark;
 
   constructor(public UserService: UserServiceProvider, public http: Http, public navCtrl: NavController, public navParams: NavParams) {
+    this.isIdark = this.UserService.isIdark;
   }
 
   send() {
-    if (this.title.length && this.text.length) {
-      this.postdata();
-    } else {
-      alert("请输入完整...");
-    }
+    alert("后台正在开发，暂时停止发布功能");
+    // if (this.title.length && this.text.length) {
+    //   this.postdata();
+    // } else {
+    //   alert("请输入完整...");
+    // }
   }
 
   postdata() {

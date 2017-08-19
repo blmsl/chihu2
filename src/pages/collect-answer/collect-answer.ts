@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Headers, Http } from '@angular/http';
-/**
- * Generated class for the CollectAnswerPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+import { UserServiceProvider } from '../../providers/user-service/user-service';
+
 @IonicPage()
 @Component({
   selector: 'page-collect-answer',
@@ -17,8 +13,10 @@ export class CollectAnswerPage {
   //数据存储
   items = [];
   id;
+  isIdark;
 
-  constructor(public http: Http, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public UserService: UserServiceProvider, public http: Http, public navCtrl: NavController, public navParams: NavParams) {
+    this.isIdark = this.UserService.isIdark;
     this.id = this.navParams.data._id;
     this.getdata();
   }

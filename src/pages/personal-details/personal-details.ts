@@ -2,12 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { Headers, Http } from '@angular/http';
-/**
- * Generated class for the PersonalDetailsPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+
 @IonicPage()
 @Component({
   selector: 'page-personal-details',
@@ -20,10 +15,10 @@ export class PersonalDetailsPage {
   isme: boolean = true;
   _id;
   rootNavCtrl: NavController;
-
+  isIdark;
 
   constructor(public UserService: UserServiceProvider, public http: Http, public navCtrl: NavController, public navParams: NavParams) {
-
+    this.isIdark = this.UserService.isIdark;
     this.user = this.UserService._user;
     this.rootNavCtrl = navParams.get('rootNavCtrl');
     this._id = this.navParams.data._id;

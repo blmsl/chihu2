@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.chihu.plue" version="1.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.chihu.plue" version="1.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>吃乎2</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
@@ -101,7 +101,4 @@
     <chcp>
         <config-file url=" http://www.devonhello.com/hotcode/chcp.json" />
     </chcp>
-    <plugin name="jmessage-phonegap-plugin" spec="~2.4.9">
-        <variable name="APP_KEY" value="941091783c37cd0fcb5a0737" />
-    </plugin>
 </widget>

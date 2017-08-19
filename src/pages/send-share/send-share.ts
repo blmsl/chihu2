@@ -22,6 +22,7 @@ export class SendSharePage {
   items = [];
   postimg = [];
   fileTransfer: TransferObject;
+  isIdark;
 
   constructor(public http: Http,
     public transfer: Transfer,
@@ -31,15 +32,19 @@ export class SendSharePage {
     private camera: Camera,
     public alertCtrl: AlertController,
     public UserService: UserServiceProvider) {
+    this.isIdark = this.UserService.isIdark;
     this.fileTransfer = this.transfer.create();
   }
 
   send() {
-    if (this.text.length) {
-      this.postdata();
-    } else {
-      alert("请说上两句...");
-    }
+
+    alert("后台正在开发，暂时停止发布功能");
+    
+    // if (this.text.length) {
+    //   this.postdata();
+    // } else {
+    //   alert("请说上两句...");
+    // }
   }
 
   postdata() {
